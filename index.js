@@ -10,9 +10,23 @@ const path = {
 }
 
 const server = http.createServer((req, res) => {
+
+    let path = "/";
+    switch (req.url) {
+        case '/':
+            path += 'home.html';
+            break;
+        case '/about':
+            path += 'about.html';
+            break;
+        default:
+            path += '404.html'
+            break
+    };
+
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
-    readFile('./views/home.html', (err, data) => {
+    readFile('./views/' + path, (err, data) => {
         if (err) {
             console.log(err);
             res.end()
